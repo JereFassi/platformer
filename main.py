@@ -62,6 +62,15 @@ def get_background(name):
 
     return tiles, image
 
+def handle_move(player):
+    keys = pygame.key.get_pressed()
+
+    player.x_vel = 0
+    if keys[pygame.K_LEFT]:
+        player.move_left(PLAYER_VEL)
+    if keys[pygame.K_RIGHT]:
+        player.move_right(PLAYER_VEL)
+
 def draw(window, background, bg_image, player):
     for tile in background:
         window.blit(bg_image, tile)
@@ -85,6 +94,8 @@ def main(window):
                 run = False
                 break
         
+        player.loop(FPS)
+        handle_move(player)
         draw(window, background, bg_image, player)
 
     pygame.quit()
